@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\event;
 use App\Models\event_register;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 
 class EventController extends Controller
@@ -50,7 +51,7 @@ class EventController extends Controller
             'payment' => $payment_methods[array_rand($payment_methods)],
             'ticket_number' => rand(10000, 99999),
         ]);
-        
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
@@ -79,6 +80,43 @@ class EventController extends Controller
                 'code' => 200,
                 'message' => 'success',
                 'data' => null
+            ], 200);
+        }
+    }
+
+    public function show_ticket(Request $request)
+    {
+        $validation = Validator::make($request->all(), [
+            'phone' => 'required|string|max:20',
+        ]);
+
+        if ($validation->fails())
+        {
+            return response()->json([
+                'code' => 422,
+                'message' => 'Validation Error',
+                'errors' => $validation->errors()
+            ], 422);
+        }
+
+        $number_phone = $request->phone;
+
+        $ticket = event_register::where('phone', $number_phone)->first();
+
+        if (is_null($ticket))
+        {
+            return response()->json([
+                'code' => 201,
+                'message' => 'Ticket not found',
+                'data' => null
+            ], 201);
+        }
+        else
+        {
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $ticket->ticket_number
             ], 200);
         }
     }
