@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 
+// Events
 Route::get('/event', [EventController::class, 'index']);
 Route::get('/event/detail/{id}', [EventController::class, 'show']);
+Route::post('/event/register', [EventController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
 
