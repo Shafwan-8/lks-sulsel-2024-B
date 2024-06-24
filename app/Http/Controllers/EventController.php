@@ -29,6 +29,7 @@ class EventController extends Controller
             return response()->json([
                 'code' => 201,
                 'message' => 'Event not found',
+                'data' => null
             ], 201);
         }
 
@@ -39,6 +40,26 @@ class EventController extends Controller
         ], 200);
     }
 
+    public function destroy($id)
+    {
+        $event = event::find($id)->delete();
+
+        if (is_null($event)) {
+            return response()->json([
+                'code' => 201,
+                'message' => 'Event not found',
+                'data' => null
+            ], 201);
+        }
+        else 
+        {
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => null
+            ], 200);
+        }
+    }
 
     public function register(Request $request)
     {
