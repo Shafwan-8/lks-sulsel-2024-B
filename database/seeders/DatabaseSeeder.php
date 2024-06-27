@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\destination;
 use App\Models\event;
+use App\Models\gallery;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,12 +19,14 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         // User::create([
-        //     'name' => 'awan',
-        //     'username' => 'wawan',
-        //     'email' => 'admin@gmail.com',
-        //     'password' => bcrypt('admin'),
+        //     'name' => 'WIWIN',
+        //     'username' => 'wawin',
+        //     'email' => 'wawin@gmail.com',
+        //     'password' => bcrypt('wawin'),
         // ]);
 
-        event::factory(10)->create();
+        // event::factory(10)->create();
+        // destination::factory(10)->create();
+        gallery::factory(10)->create();
     }
 }

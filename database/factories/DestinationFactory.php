@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\destination;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\destination>
+ */
+class DestinationFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    protected $model = destination::class;
+
+    public function definition(): array
+    {
+        return [
+            'name' => fake()->name(),
+            'user_id' => User::pluck('id')->random(),
+            'description' => fake()->text(),
+        ];
+    }
+}
