@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\categories;
 use App\Models\destination;
 use App\Models\event;
 use App\Models\gallery;
+use App\Models\post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -27,6 +29,14 @@ class DatabaseSeeder extends Seeder
 
         // event::factory(10)->create();
         // destination::factory(10)->create();
-        gallery::factory(10)->create();
+        // gallery::factory(10)->create();
+        for ($i = 0; $i < 5; $i++)
+        {
+            categories::create([
+                'name' => fake()->name()
+            ]);
+        }
+        post::factory(10)->create();
+
     }
 }
