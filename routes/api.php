@@ -15,7 +15,6 @@ Route::get('/event', [EventController::class, 'index']);
 Route::get('/event/detail/{id}', [EventController::class, 'show']);
 Route::post('/event/register', [EventController::class, 'register']);
 Route::post('/event/ticket', [EventController::class, 'show_ticket']);
-Route::delete('/event/{id}', [EventController::class, 'destroy']);
 
 // Destinasi
 Route::get('/destinasi', [DestinationController::class, 'index']);
@@ -31,7 +30,12 @@ Route::get('/posts/detail/{id}', [PostController::class, 'show']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    
     Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Event
+    Route::get('/admin/event', [EventController::class, 'index']);
+    Route::get('/admin/event/detail/{id}', [EventController::class, 'show']);
+    Route::delete('/admin/event/{id}', [EventController::class, 'destroy']);
 
 });

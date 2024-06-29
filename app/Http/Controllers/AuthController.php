@@ -31,7 +31,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($tervalidasi)) {
 
-            $token = $user->createToken('token')->plainTextToken;
+            $token = $request->user()->createToken('token')->plainTextToken;
 
             return response()->json([
                 'status' => true,
