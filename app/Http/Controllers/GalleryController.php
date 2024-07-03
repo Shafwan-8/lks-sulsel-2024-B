@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\gallery;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -10,6 +11,11 @@ class GalleryController extends Controller
     public function index()
     {
         $data = gallery::all();
+
+        foreach ($data as $key => $value) {
+            $user = User::find($value->user_id);
+            $data[$key]->user = $user->name;
+        }
 
         return response()->json([
             'code' => 200,

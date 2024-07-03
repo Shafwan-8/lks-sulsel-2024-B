@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\event;
 use App\Models\event_register;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
@@ -14,10 +15,15 @@ class EventController extends Controller
     {
         $data = event::all();
 
+        foreach ($data as $key => $value) {
+            $user = User::find($value->user_id);
+            $data[$key]->user = $user->name;
+        }
+
         return response()->json([
             'code' => 200,
             'message' => 'success',
-            'data' => $data
+            'data' => $data,
         ], 200);
     }
 

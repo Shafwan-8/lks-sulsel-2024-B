@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\categories;
 use App\Models\post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -10,6 +12,13 @@ class PostController extends Controller
     public function index()
     {
         $data = post::all();
+        
+        foreach ($data as $key => $value) {
+            $user = User::find($value->user_id);
+            $category = categories::find($value->category_id);
+            $data[$key]->user = $user->name;
+            $data[$key]->category = $category->name;
+        }
 
         return response()->json([
             'code' => 200,
