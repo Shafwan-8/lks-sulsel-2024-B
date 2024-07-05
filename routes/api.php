@@ -38,4 +38,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/event/detail/{id}', [EventController::class, 'show']);
     Route::delete('/admin/event/{id}', [EventController::class, 'destroy']);
 
+    // Destination
+    Route::post('/admin/destination/create', [DestinationController::class, 'create']);
+    Route::get('/admin/destination/{id}', [DestinationController::class, 'show']);
+    Route::put('/admin/destination/{id}', [DestinationController::class, 'update']);
+    Route::delete('/admin/destination/{id}', [DestinationController::class, 'destroy']);
+
 });
