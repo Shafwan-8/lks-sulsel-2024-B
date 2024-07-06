@@ -48,6 +48,84 @@ class EventController extends Controller
         ], 200);
     }
 
+    public function create(Request $request)
+    {
+        $request->request->add([
+            'user_id' => auth()->user()->id,
+        ]);
+
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|integer|exists:users,id',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date_start' => 'required|date',
+            'date_end' => 'required|date',
+            'price' => 'required|numeric',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'code' => 422,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        else
+        {
+            $data = $validator->validated();
+
+            event::create($data);
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        }
+    }
+    public function edit(Request $request, string $id)
+    {
+        $event = event::find($id);
+
+        if (is_null($event)) {
+            return response()->json([
+                'code' => 201,
+                'message' => 'Event not found',
+                'data' => null
+            ], 201);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'date_start' => 'required|date',
+            'date_end' => 'required|date',
+            'price' => 'required|numeric',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json([
+                'code' => 422,
+                'message' => 'Validation Error',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+        else
+        {
+            $data = $validator->validated();
+
+            $event->update($data);
+
+            return response()->json([
+                'code' => 200,
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        }
+    }
+
     public function destroy($id)
     {
         $event = event::find($id)->delete();
