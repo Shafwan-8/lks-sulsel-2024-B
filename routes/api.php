@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DestinationController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
@@ -45,5 +46,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/destination/{id}', [DestinationController::class, 'show']);
     Route::put('/admin/destination/{id}', [DestinationController::class, 'update']);
     Route::delete('/admin/destination/{id}', [DestinationController::class, 'destroy']);
+
+    // Post
+    Route::get('/admin/post', [PostController::class, 'index']);
+    Route::get('/admin/post/{id}', [PostController::class, 'show']);
+    Route::post('/admin/post/create', [PostController::class, 'create']);
+    Route::put('/admin/post/{id}', [PostController::class, 'edit']);
+    Route::delete('/admin/post/{id}', [PostController::class, 'destroy']);
+
+    // Galleries
+    Route::get('/admin/gallery', [GalleryController::class, 'index']);
+    Route::get('/admin/gallery/{id}', [GalleryController::class, 'show']);
+    Route::post('/admin/gallery/create', [GalleryController::class, 'create']);
+    Route::put('/admin/gallery/{id}', [GalleryController::class, 'update']);
+    Route::delete('/admin/gallery/{id}', [GalleryController::class, 'destroy']);
+
+    // Categories
+    Route::get('/admin/category', [CategoryController::class, 'index']);
 
 });
