@@ -30,6 +30,8 @@ class EventController extends Controller
     public function show($id)
     {
         $event = event::find($id);
+        $user = User::where('id', $event->user_id)->first();
+        $event->user = $user->name;
 
         if (is_null($event)) {
             return response()->json([
